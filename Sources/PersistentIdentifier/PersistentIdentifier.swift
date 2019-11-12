@@ -84,6 +84,19 @@ final public class PersistentIdentifier {
     }
     
     private func update(name: String, value: String) throws {
+        let query: [String:AnyObject] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: name as AnyObject
+        ]
+        
+        let attributes: [String:AnyObject] = [
+            kSecValueData as String: value.data(using: .utf8)! as AnyObject,
+        ]
+        
+        let status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
+        if status != noErr {
+            throw KeychainError.keychainError(status: status)
+        }
     }
     
     private func set(identifier: String) throws {
