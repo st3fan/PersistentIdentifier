@@ -18,21 +18,21 @@ final public class PersistentIdentifier {
     
     private let name: String;
     
-    init(name: String = "persistentIdentifier") {
+    public init(name: String = "persistentIdentifier") {
         self.name = name
     }
     
-    func initialize() throws {
+    public func initialize() throws {
         if try get() == nil {
             try add(name: self.name, value: generateIdentifier())
         }
     }
     
-    func reset() throws {
+    public func reset() throws {
         try set(identifier: generateIdentifier())
     }
     
-    func delete() throws {
+    public func delete() throws {
         let item: [String:AnyObject] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: name as AnyObject
@@ -44,7 +44,7 @@ final public class PersistentIdentifier {
         }
     }
     
-    func get() throws -> String? {
+    public func get() throws -> String? {
         let query: [String:AnyObject] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: name as AnyObject,
