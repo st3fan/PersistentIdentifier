@@ -9,7 +9,7 @@ import Security
 
 // Based on https://github.com/objcio/keychain-item
 
-class PersistentIdentifier {
+final public class PersistentIdentifier {
     static let `default` = PersistentIdentifier()
 
     public enum KeychainError: Error {
